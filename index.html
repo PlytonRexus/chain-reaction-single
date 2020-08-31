@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Chain Reaction Room</title>
+
+    <style>
+        body {
+            background: rgb(41, 41, 38);
+            display: flex;
+            min-height: 95vh;
+            justify-content: center;
+            align-content: center;
+        }
+        ::-moz-selection {
+            color: white;
+            background: rgb(211, 173, 76);
+        }
+        ::selection {
+            color: white;
+            background: rgb(211, 173, 76);
+        }
+        form {
+            width: 80vw;
+            display: flex;
+            padding: 20px;
+            border: 2px solid rgb(211, 173, 76);
+            margin: 2px auto;
+            flex-flow: column;
+            justify-content: center;
+            align-content: center;
+            border-radius: 20px;
+        }
+        input, button {
+            width: 60%;
+            padding: 10px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            border: 1px solid rgb(211, 173, 76);
+            background: rgba(211, 173, 76, 0);
+            font-size: 15px;
+            color: white;
+        }
+        input:focus {
+            background:rgb(211, 173, 76);
+            color: black;
+        }
+        button {
+            border: 2px solid rgb(211, 173, 76);
+            color: white;
+            width: 62%;
+        }
+        button:hover {
+            background:rgb(211, 173, 76);
+            color: black;
+        }
+        select {
+            border: 2px solid rgb(211, 173, 76);
+            color: grey;
+            padding: 10px;
+            width: 62%;
+            outline: none;
+            background-color: rgba(0, 0, 0, 0);
+            text-align: center;
+        }
+        select:hover, select:active {
+            background:rgb(211, 173, 76);
+            color: black;
+        }
+        div {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            padding: 10px;
+        }
+        h1, h4 {
+            font-family: monospace;
+            color: rgb(211, 173, 76);
+            text-align: center;
+            padding: 0;
+            margin: 3px;
+        }
+        #players {
+            padding: 0;
+            margin: 0
+        }
+        option {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-wrap">
+        <form id="room-selector">
+            <div>
+                <select name="mode">
+                    <option value="graphical">Graphical (Can work on most devices)</option>
+                    <option value="numeric">Numeric (For extremely low-resource systems)</option>
+                </select>
+            </div>
+            <h4>Number Of Players (Min: 2, Max: 12) </h4>
+            <div>
+                <input type="range" id="players" name="players" min="2" max="12" value="2" />
+            </div>
+            <div>
+                <button type="submit"> Play! </button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function swrite(key, value) {
+            sessionStorage.setItem(key, btoa(value));
+        }
+        let form = document.querySelector("#room-selector");
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            swrite('chrct-players', event.target['players'].value);
+            swrite('chrct-mode', event.target['mode'].value);
+            window.location = `/play`;
+        });
+    </script>
+    
+</body>
+</html>
